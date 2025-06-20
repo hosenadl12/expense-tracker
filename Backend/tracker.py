@@ -14,8 +14,8 @@ class ExpenseTracker:
         self._load_expenses() # Load data from file at initialization
 
     def _load_expenses(self):
-        # Load expenses from disk (JSON).
-        #If file or folder doesn’t exist, create them and start fresh.
+        # Load expenses from JSON file.
+        # If file or folder does not exist, then we create them and start fresh.
 
         if not os.path.exists(self.data_file):
             os.makedirs(os.path.dirname(self.data_file), exist_ok=True)
@@ -26,28 +26,30 @@ class ExpenseTracker:
                 self.expenses = json.load(f)
         except json.JSONDecodeError:
 
-        # Handle edge case: file exists but is empty or broken
+        # Handles edge case where file exists but is empty or broken
             self.expenses = []
 
     def _save_expenses(self, expenses=None):
-        # Save expenses to file. If no list is passed in
+        # Saves expenses to file. If no list is passed in
         # Just use the current self.expenses list.
         if expenses is None:
             expenses = self.expenses
         with open(self.data_file, 'w') as f:
             json.dump(expenses, f, indent=2)
 
+
     def add_expense(self, category, amount, date=None):
-        # Add a new expense with category, amount, and date.
+        # Adds a new expense with category, amount, and date.
         # If no date is provided, we default to today.
         date = date or datetime.now().strftime('%Y-%m-%d')
         entry = {'category': category, 'amount': round(amount, 2), 'date': date}
         self.expenses.append(entry)
         self._save_expenses()
 
+
     def delete_last_expense(self):
         # Remove the most recent expense (last in the list).
-        # This is useful if you accidentally entered something.
+        # This is useful if you accidentally entered an expense.
         if not self.expenses:
             return None # Nothing to delete
         last = self.expenses.pop()  # Remove last entry

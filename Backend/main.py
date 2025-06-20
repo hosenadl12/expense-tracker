@@ -9,7 +9,7 @@ def main():
     while True:
 
         # Display the menu options to the user
-        print("\n===== HOSEN'S EXPENSE TRACKER MENU =====")
+        print("\nHOSEN'S EXPENSE TRACKER MENU: ")
         print("1. Add Expense")
         print("2. View Total Expense")
         print("3. View by Category")
@@ -85,6 +85,5 @@ def main():
         else:
             print("Invalid option.")
 
-# Only run the app loop if this file is being executed directly (not imported)
 if __name__ == "__main__":
     main()
